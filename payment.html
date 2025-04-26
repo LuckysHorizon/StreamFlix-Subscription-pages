@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STREAMFLIX - Payment Gateway</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #000000, #8B0000);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        body:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at bottom right, rgba(139, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: gradientShift 10s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.5; }
+        }
+
+        .header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #E50914;
+            text-decoration: none;
+        }
+
+        .main-content {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        .payment-card {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .form-label {
+            color: #e5e5e5;
+            font-weight: 500;
+        }
+
+        .form-control, .form-select {
+            background-color: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 5px;
+            padding: 12px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(30, 30, 30, 0.8);
+            border-color: #E50914;
+            box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25);
+            color: white;
+        }
+
+        .credit-card {
+            background: linear-gradient(135deg, #333, #111);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            height: 210px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .credit-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            border-radius: 15px;
+        }
+
+        .chip {
+            width: 50px;
+            height: 40px;
+            background: linear-gradient(135deg, #FFD700, #B8860B);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chip:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            border-radius: 5px;
+        }
+
+        .card-number {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .btn-pay {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-pay:hover {
+            background-color: #B20710;
+        }
+
+        .btn-back {
+            background-color: transparent;
+            border: 1px solid #E50914;
+            color: #E50914;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-right: 15px;
+        }
+
+        .btn-back:hover {
+            background-color: rgba(229, 9, 20, 0.1);
+        }
+
+        .step-indicator {
+            color: #aaa;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .payment-success {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .payment-success.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-card {
+            background: linear-gradient(135deg, #111, #333);
+            border-radius: 15px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+            position: relative;
+        }
+
+        .payment-success.show .success-card {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #4BB543;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+        }
+
+        .success-icon i {
+            font-size: 40px;
+            color: white;
+        }
+
+        .success-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .success-message {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .subscription-info {
+            background-color: rgba(20, 20, 20, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: white;
+        }
+
+        .btn-continue {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-continue:hover {
+            background-color: #B20710;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="logo">STREAMFLIX</a>
+                <button class="btn btn-back" onclick="window.history.back()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <div class="step-indicator">FINAL STEP</div>
+        <h1 class="mb-4">PAYMENT DETAILS</h1>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Payment Form -->
+                <div class="payment-card">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="mb-4">Payment Information</h3>
+                            <div class="mb-3">
+                                <label for="cardName" class="form-label">Cardholder Name</label>
+                                <input type="text" class="form-control" id="cardName" placeholder="John Doe">
+                            </div>
+                            <div class="mb-3">
+                                <label for="cardNumber" class="form-label">Card Number</label>
+                                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="expiryDate" class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="credit-card">
+                                <div class="chip"></div>
+                                <div class="card-number">•••• •••• •••• ••••</div>
+                                <div class="card-details">
+                                    <div>
+                                        <div style="opacity: 0.7;">Card Holder</div>
+                                        <div id="displayName">JOHN DOE</div>
+                                    </div>
+                                    <div>
+                                        <div style="opacity: 0.7;">Expires</div>
+                                        <div id="displayExpiry">MM/YY</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="zipCode" class="form-label">Zip Code</label>
+                                <input type="text" class="form-control" id="zipCode" placeholder="12345">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Information -->
+                <div class="payment-card">
+                    <h3 class="mb-4">Billing Information</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="John">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="john@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="123 Main St">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" placeholder="New York">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <select class="form-select" id="state">
+                                <option selected disabled>Select</option>
+                                <option>NY</option>
+                                <option>CA</option>
+                                <option>TX</option>
+                                <option>FL</option>
+                                <option>IL</option>
+                                <!-- Add more states as needed -->
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="zipCodeBilling" class="form-label">Zip Code</label>
+                            <input type="text" class="form-control" id="zipCodeBilling" placeholder="12345">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Order Summary -->
+                <div class="payment-card">
+                    <h3 class="mb-4">Order Summary</h3>
+                    <div id="orderDetails">
+                        <!-- This will be populated by JavaScript -->
+                    </div>
+                    <hr class="my-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <div>Subtotal</div>
+                        <div id="subtotal">₹0.00</div>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <div>Tax</div>
+                        <div id="tax">₹0.00</div>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <div>Total</div>
+                        <div id="total" class="fw-bold">₹0.00</div>
+                    </div>
+                    <button id="payNowBtn" class="btn btn-pay">Pay Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Success Modal -->
+    <div id="paymentSuccess" class="payment-success">
+        <div class="success-card">
+            <button class="close-button" onclick="closeSuccessModal()">×</button>
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2 class="success-title">Payment Successful!</h2>
+            <p class="success-message">Your subscription has been activated successfully.</p>
+            <div class="subscription-info">
+                <div class="row">
+                    <div class="col-6 text-start">Service:</div>
+                    <div id="serviceName" class="col-6 text-end fw-bold">Netflix</div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6 text-start">Plan:</div>
+                    <div id="planType" class="col-6 text-end fw-bold">4K Ultra HD</div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6 text-start">Start Date:</div>
+                    <div id="startDate" class="col-6 text-end fw-bold">Apr 26, 2025</div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6 text-start">Next Billing:</div>
+                    <div id="nextBilling" class="col-6 text-end fw-bold">May 26, 2025</div>
+                </div>
+            </div>
+            <button class="btn btn-continue" onclick="window.location.href='index.html'">Continue to STREAMFLIX</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to get URL parameters
+        function getUrlParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Sample plan data (in a real app, this would come from a database or API)
+        const planData = {
+            netflix: {
+                name: "Netflix",
+                price: 649,
+                resolution: "4K Ultra HD"
+            },
+            disney: {
+                name: "Disney+",
+                price: 249,
+                resolution: "Full HD"
+            },
+            hbo: {
+                name: "HBO Max",
+                price: 169,
+                resolution: "4K Ultra HD"
+            },
+            amazon: {
+                name: "Amazon Prime Video",
+                price: 249,
+                resolution: "Full HD"
+            },
+            hulu: {
+                name: "Hulu",
+                price: 349,
+                resolution: "Full HD"
+            },
+        };
+
+        // When the page loads, populate the order details based on the URL parameter
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the selected service from URL parameter, default to netflix if not specified
+            const service = getUrlParam('service') || 'netflix';
+            
+            // Get the plan data for the selected service
+            const plan = planData[service];
+            
+            if (plan) {
+                // Calculate tax and total
+                const subtotal = plan.price;
+                const tax = subtotal * 0.08; // 8% tax rate
+                const total = subtotal + tax;
+                
+                // Update the order summary
+                document.getElementById('orderDetails').innerHTML = `
+                    <div class="d-flex justify-content-between mb-2">
+                        <div>${plan.name}</div>
+                        <div>₹${plan.price.toFixed(2)}</div>
+                    </div>
+                    <div class="text-muted mb-3">${plan.resolution} Plan</div>
+                `;
+                
+                document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+                document.getElementById('tax').textContent = `₹${tax.toFixed(2)}`;
+                document.getElementById('total').textContent = `₹${total.toFixed(2)}`;
+                
+                // Set the subscription info in the success modal
+                document.getElementById('serviceName').textContent = plan.name;
+                document.getElementById('planType').textContent = plan.resolution;
+                
+                // Set the dates
+                const today = new Date();
+                const nextMonth = new Date(today);
+                nextMonth.setMonth(today.getMonth() + 1);
+                
+                const formatDate = (date) => {
+                    const options = { month: 'short', day: 'numeric', year: 'numeric' };
+                    return date.toLocaleDateString('en-US', options);
+                };
+                
+                document.getElementById('startDate').textContent = formatDate(today);
+                document.getElementById('nextBilling').textContent = formatDate(nextMonth);
+            }
+            
+            // Card display updates
+            document.getElementById('cardName').addEventListener('input', function() {
+                document.getElementById('displayName').textContent = this.value.toUpperCase() || 'JOHN DOE';
+            });
+            
+            document.getElementById('expiryDate').addEventListener('input', function() {
+                document.getElementById('displayExpiry').textContent = this.value || 'MM/YY';
+            });
+            
+            // Pay Now button click event
+            document.getElementById('payNowBtn').addEventListener('click', function() {
+                // Show the success modal
+                document.getElementById('paymentSuccess').classList.add('show');
+            });
+        });
+        
+        // Function to close the success modal
+        function closeSuccessModal() {
+            document.getElementById('paymentSuccess').classList.remove('show');
+        }
+    </script>
+</body>
+</html>

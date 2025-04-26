@@ -1,0 +1,167 @@
+/* Background Animation */
+body {
+    background: linear-gradient(to right, rgba(229,9,20,0.7) 0%, rgba(20,20,20,1) 40%, rgba(0,0,0,1) 100%);
+    background-size: 200% 100%;
+    background-position: left center;
+    background-attachment: fixed;
+    animation: moveBackground 20s ease-in-out infinite alternate;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  @keyframes moveBackground {
+    0% {
+      background-position: left center;
+    }
+    100% {
+      background-position: right center;
+    }
+  }
+  
+  /* Header */
+  .header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+  }
+  
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: white;
+  }
+  
+  .logo-text span {
+    color: #e50914;
+  }
+  
+  /* Signup Card */
+  .signup-card {
+    max-width: 600px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    color: #fff;
+    padding: 40px;
+    box-shadow: 0 8px 32px 0 rgba(229,9,20,0.2);
+  }
+  
+  /* Continue Button */
+  .btn-continue {
+    background-color: #e50914;
+    border: none;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .btn-continue:hover {
+    background-color: #b00610;
+    transform: scale(1.02);
+  }
+  
+  /* Input Style */
+  input.form-control {
+    padding: 15px;
+    background: rgba(24,24,24,0.8);
+    color: white;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  input.form-control::placeholder {
+    color: #ccc;
+  }
+  
+  /* Reuse Plan Page styles below (already given) */
+  .signup-container {
+    max-width: 700px;
+    margin: auto;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(229,9,20,0.25);
+    color: #fff;
+    margin-top: 60px;
+  }
+  
+  .step-info {
+    font-size: 0.9rem;
+    color: #aaa;
+    letter-spacing: 1px;
+  }
+  
+  .main-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: #e50914;
+  }
+  
+  .features-list {
+    list-style: none;
+    padding: 0;
+    font-size: 1rem;
+  }
+  
+  .features-list li {
+    margin-bottom: 10px;
+  }
+  
+  .features-list i {
+    color: #e50914;
+    margin-right: 10px;
+  }
+  
+  .table-container {
+    background: rgba(24, 24, 24, 0.7);
+    backdrop-filter: blur(8px);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 16px 0 rgba(229,9,20,0.2);
+  }
+  
+  .table {
+    color: #ffffff;
+  }
+  
+  .table thead th {
+    background-color: rgb(235 7 7 / 80%);
+    border: none;
+    text-transform: uppercase;
+  }
+  
+  .table tbody tr:hover {
+    background-color: rgba(229,9,20,0.1);
+    transform: scale(1.01);
+  }
+  
+  .table th, .table td {
+    border: none;
+    vertical-align: middle;
+  }
+  
+  .btn-plan {
+  background: linear-gradient(135deg, #4b3cc0 0%, #e50914 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(229,9,20,0.3);
+}
+
+.btn-plan:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(229,9,20,0.4);
+  background: linear-gradient(135deg, #5c4dd6 0%, #ff0d17 100%);
+}
+
+  

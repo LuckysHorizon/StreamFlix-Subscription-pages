@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STREAMFLIX - Plan Description</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #000000, #8B0000);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        body:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at bottom right, rgba(139, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: gradientShift 10s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.5; }
+        }
+
+        .header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #E50914;
+            text-decoration: none;
+        }
+
+        .main-content {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        .plan-card {
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .plan-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-logo {
+            width: 200px;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #E50914;
+        }
+
+        .plan-resolution {
+            font-size: 1.2rem;
+            color: #cccccc;
+        }
+
+        .feature-list {
+            margin: 25px 0;
+        }
+
+        .feature-item {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-item i {
+            color: #E50914;
+            margin-right: 10px;
+        }
+
+        .btn-subscribe {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-subscribe:hover {
+            background-color: #B20710;
+        }
+
+        .btn-back {
+            background-color: transparent;
+            border: 1px solid #E50914;
+            color: #E50914;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-right: 15px;
+        }
+
+        .btn-back:hover {
+            background-color: rgba(229, 9, 20, 0.1);
+        }
+
+        .step-indicator {
+            color: #aaa;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        /* Service-specific color themes */
+        .netflix-theme .plan-price {
+            color: #E50914;
+        }
+        
+        .disney-theme .plan-price {
+            color: #0063e5;
+        }
+        
+        .hbo-theme .plan-price {
+            color: #5822b4;
+        }
+        
+        .amazon-theme .plan-price {
+            color: #00A8E1;
+        }
+        
+        .hulu-theme .plan-price {
+            color: #1CE783;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="logo">STREAMFLIX</a>
+                <button class="btn btn-back" onclick="window.history.back()">
+                    <i class="fas fa-arrow-left"></i> Back to Plans
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <div class="step-indicator">STEP 3 OF 3</div>
+        <h1 class="mb-4">PLAN DETAILS</h1>
+        
+        <!-- Plan Description Card -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div id="planDetails" class="plan-card netflix-theme">
+                    <!-- Content will be dynamically populated by JavaScript -->
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="plan-card">
+                    <h3>Why Choose STREAMFLIX?</h3>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>One unified billing for all your streaming services</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Cancel or change plans anytime</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Special bundle discounts</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>24/7 customer support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to get URL parameters
+        function getUrlParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Sample plan data (in a real app, this would come from a database or API)
+        const planData = {
+            netflix: {
+                name: "Netflix",
+                price: "$15.49",
+                resolution: "4K Ultra HD",
+                logo: "/api/placeholder/80/80", // Placeholder for Netflix logo
+                themeClass: "netflix-theme",
+                features: [
+                    "Unlimited movies, TV shows and mobile games",
+                    "Watch on 4 devices at the same time",
+                    "Download on up to 6 devices at once",
+                    "No ads or commercials",
+                    "Cancel anytime",
+                    "First month free"
+                ],
+                description: "Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices."
+            },
+            disney: {
+                name: "Disney+",
+                price: "$7.99",
+                resolution: "Full HD",
+                logo: "/api/placeholder/80/80", // Placeholder for Disney+ logo
+                themeClass: "disney-theme",
+                features: [
+                    "Exclusive Disney, Pixar, Marvel, Star Wars content",
+                    "Watch on 4 devices at the same time",
+                    "Download and watch offline",
+                    "GroupWatch feature",
+                    "No ads (in basic plan)",
+                    "Cancel anytime"
+                ],
+                description: "Disney+ is the streaming home for entertainment from Disney, Pixar, Marvel, Star Wars, and National Geographic."
+            },
+            hbo: {
+                name: "HBO Max",
+                price: "₹ 169",
+                resolution: "4K Ultra HD",
+                logo: "/img/HBO_Max_Logo.svg.png", // Placeholder for HBO Max logo
+                themeClass: "hbo-theme",
+                features: [
+                    "Stream Warner Bros. movies same day as theaters",
+                    "Entire HBO catalog + exclusive Max Originals",
+                    "Watch on up to 3 devices at the same time",
+                    "Create up to 5 personalized profiles",
+                    "Download shows to watch offline",
+                    "Cancel anytime"
+                ],
+                description: "HBO Max is a stand-alone streaming platform that bundles all of HBO together with even more TV favorites, blockbuster movies, and new Max Originals."
+            },
+            amazon: {
+                name: "Amazon Prime Video",
+                price: "$8.99",
+                resolution: "Full HD",
+                logo: "/api/placeholder/80/80", // Placeholder for Amazon logo
+                themeClass: "amazon-theme",
+                features: [
+                    "Thousands of movies and TV shows",
+                    "Amazon Original content",
+                    "Watch on 3 devices at the same time",
+                    "X-Ray feature for actor and music info",
+                    "Includes free shipping with full Prime",
+                    "Cancel anytime"
+                ],
+                description: "Prime Video is a streaming service featuring movies, TV shows, and Amazon Original content. It's included with an Amazon Prime membership or available as a standalone service."
+            },
+            hulu: {
+                name: "Hulu",
+                price: "$7.99",
+                resolution: "Full HD",
+                logo: "/api/placeholder/80/80", // Placeholder for Hulu logo
+                themeClass: "hulu-theme",
+                features: [
+                    "Stream over 85,000 episodes of TV",
+                    "Access to current season of many shows",
+                    "Hulu original content",
+                    "Create up to 6 profiles",
+                    "Watch on 2 screens at once",
+                    "Cancel anytime"
+                ],
+                description: "Hulu is the leading premium streaming service offering live and on-demand TV and movies, with and without commercials, both in and outside the home."
+            },
+        };
+
+        // When the page loads, populate the plan details based on the URL parameter
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the selected service from URL parameter, default to netflix if not specified
+            const service = getUrlParam('service') || 'hbo';
+            
+            // Get the plan data for the selected service
+            const plan = planData[service];
+            
+            if (plan) {
+                // Update the plan card with appropriate theme class
+                const planCard = document.getElementById('planDetails');
+                planCard.className = `plan-card ${plan.themeClass}`;
+                
+                // Build the HTML content for the plan details
+                let html = `
+                    <div class="plan-header">
+                        <div>
+                            <h2>${plan.name}</h2>
+                            <div class="plan-resolution">${plan.resolution}</div>
+                        </div>
+                        <img src="${plan.logo}" alt="${plan.name} logo" class="service-logo">
+                    </div>
+                    <div class="plan-price mb-3">${plan.price}<span class="fs-6"> /month</span></div>
+                    <p>${plan.description}</p>
+                    <h4 class="mt-4">Features:</h4>
+                    <div class="feature-list">`;
+                
+                // Add each feature as a list item
+                plan.features.forEach(feature => {
+                    html += `
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>${feature}</span>
+                        </div>`;
+                });
+                
+                html += `
+                    </div>
+                    <a href="payment.html" button class="btn btn-subscribe">Subscribe Now</button>`;
+                
+                // Insert the HTML content into the plan details card
+                planCard.innerHTML = html;
+            }
+        });
+    </script>
+</body>
+</html>
