@@ -5,7 +5,7 @@ StreamFlix Subscription Pages is a front-end web project that simulates the subs
 
 Note: This is a static prototype hosted on GitHub Pages and does not include backend functionality or actual streaming capabilities.
 
-Table of Contents
+#Table of Contents
 
 Features
 Demo
@@ -17,7 +17,7 @@ Contributing
 License
 Contact
 
-Features
+#Features
 
 Responsive Design: Optimized for desktop, tablet, and mobile devices.
 Subscription Flow:
@@ -41,33 +41,16 @@ JavaScript: Client-side interactivity, form validation, and dynamic content.
 GitHub Pages: Hosting for the static site.
 Assets: Images and icons for branding and UI enhancement.
 
-Project Structure
-StreamFlix-Subscription-pages/
-├── index.html              # Home page
-├── plans.html              # Subscription plans page
-├── signup.html             # Sign-up page
-├── confirmation.html       # Confirmation page
-├── login.html              # Login page (optional)
-├── faq.html                # FAQ/support page (optional)
-├── 404.html                # Custom 404 error page
-├── css/
-│   └── styles.css          # Main stylesheet
-├── js/
-│   └── scripts.js          # Main JavaScript file
-├── assets/
-│   ├── logo.png            # StreamFlix logo
-│   └── images/             # Additional images
-└── README.md               # Project documentation
 
-Setup Instructions
+#Setup Instructions
 To run the project locally:
 
-Clone the Repository:
+#Clone the Repository:
 git clone https://github.com/luckyshorizon/StreamFlix-Subscription-pages.git
 cd StreamFlix-Subscription-pages
 
 
-Serve the Site:
+#Serve the Site:
 
 Use a local web server (e.g., Python’s HTTP server):python3 -m http.server 8000
 
@@ -75,14 +58,14 @@ Use a local web server (e.g., Python’s HTTP server):python3 -m http.server 800
 Alternatively, open index.html directly in a browser (note: some features may not work due to CORS restrictions).
 
 
-Access the Site:
+#Access the Site:
 
-Open http://localhost:8000 in your browser to view the home page.
+#Open http://localhost:8000 in your browser to view the home page.
 Navigate to other pages (e.g., plans.html, signup.html) via links or by entering URLs directly.
 
 
 
-Usage
+#Usage
 
 Home Page: Start here to explore StreamFlix and access the subscription plans.
 Plans Page: Compare subscription tiers and select a plan.
@@ -94,7 +77,8 @@ FAQ Page (if available): Read answers to common subscription questions.
 
 Tip: This is a front-end prototype. Form submissions and plan selections are for demonstration only and do not connect to a backend.
 
-Contributing
+
+#Contributing
 Contributions are welcome! To contribute:
 
 Fork the repository.
@@ -109,10 +93,10 @@ License
 This project is licensed under the MIT License. See the LICENSE file for details.
 Contact
 
-Author: Lucky’s Horizon
-GitHub: luckyshorizon
-Email: manikantaboda07@gmail.com
-Issues: Report bugs or suggest features via GitHub Issues
+#Author: Lucky’s Horizon
+#GitHub: luckyshorizon
+#Email: manikantaboda07@gmail.com
+#Issues: Report bugs or suggest features via GitHub Issues
 
 
 Thank you for exploring StreamFlix Subscription Pages! Happy coding and designing! 🚀
